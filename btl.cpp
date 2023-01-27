@@ -31,6 +31,7 @@ class nhanvien{
     }
     virtual void luong(){}
     virtual long luongthang(int i){}
+    long getma(){return ma;}
 };
 class dev:
     virtual public nhanvien
@@ -57,7 +58,7 @@ class dev:
       virtual void luong()
       {
           for (int i=0;i<=11;i++)
-            cout<<"Luong thang "<<i+1<<" la: "<<luongcb+them[i]*200000<<"d"<<endl;
+            cout<<"Luong thang "<<i+1<<" la: "<<luongcb+them[i]*200000<<endl;
       }
       virtual long luongthang( int i)
       {
@@ -88,7 +89,7 @@ class test:
       virtual void luong()
       {
           for (int i=0;i<=11;i++)
-          cout<<"Luong thang "<<i+1<<"l a: "<<luongcb+soloi[i]*20000<<"d"<<endl;
+          cout<<"Luong thang "<<i+1<<"l a: "<<luongcb+soloi[i]*20000<<endl;
       }
       virtual long luongthang( int i)
       {
@@ -168,29 +169,33 @@ class quanly
      }
      void xoa(int i)
      {
-         for(int j=i;j<n-1;j++)
-         a[j]=a[j+1];
+         for (int k=0;k<n;k++)
+         {
+             if (a[k]->getma()==i)
+             {
+                 for(int j=k;j<n-1;j++)
+                 a[j]=a[j+1];
+             }
+         }
      }
      void sua (int i)
      {
-         int k;
-        cout<<"\nChon loai nhan vien:";
-        cout<<"\n1. Lap trinh vien";
-        cout<<"\n2. Tester\n";
-        cin>>k;
-        if (k!=1 && k!=2 && k!=0) cout<<"Khong hop le";
-        if (k==0) return ;
-        else if (k==1)
-        {
-            n++;
-            a[i]= new dev;
-        }
-        else
-        {
-            n++;
-            a[i]= new test;
-        }
-        a[i]->nhap();
+        for (int m=0;m<n;m++)
+         {
+             if (a[m]->getma()==i)
+             {
+                int k;
+                cout<<"\nChon loai nhan vien:";
+                cout<<"\n1. Lap trinh vien";
+                cout<<"\n2. Tester\n";
+                cin>>k;
+                if (k!=1 && k!=2 && k!=0) cout<<"Khong hop le";
+                if (k==0) return ;
+                else if (k==1) a[m]= new dev;
+                else a[m]= new test;
+                a[m]->nhap();
+              }
+         }
      }
      long luongtb(int i)
      {
@@ -274,27 +279,27 @@ int main()
             }
         case 4:
             {
-                int n;
+                int n,m;
                 cout<<endl<<"So luong nhan vien can sua thong tin: ";
                 cin>>n;
                 for (int j=1;j<=n;j++)
                 {
-                    timkiem();
-                    //them ham tim nhan vien can sua
-                    x.sua(n);
+                    cout<<endl<<"Nhap ma nhan vien can sua: ";
+                    cin>>m;
+                    x.sua(m);
                 }
                 break;
             }
         case 5:
             {
-               int n;
+               int n,m;
                cout<<endl<<"So luong nhan vien can xoa: ";
                cin>>n;
                for (int j=1;j<=n;j++)
                 {
-                    timkiem();
-                    //them ham tim nhan vien can sua
-                    x.xoa(n-1);
+                    cout<<endl<<"Nhap ma nhan vien can xoa: ";
+                    cin>>m;
+                    x.xoa(m);
                 }
                 break;
             }
