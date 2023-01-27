@@ -177,6 +177,7 @@ class quanly
                  dem=1;
                  for(int j=k;j<n-1;j++)
                  a[j]=a[j+1];
+                 a[n-1]->~nhanvien();
                  n=n-1;
              }
          }
