@@ -169,22 +169,27 @@ class quanly
      }
      void xoa(int i)
      {
+         int dem=0;
          for (int k=0;k<n;k++)
          {
              if (a[k]->getma()==i)
              {
+                 dem=1;
                  for(int j=k;j<n-1;j++)
                  a[j]=a[j+1];
                  n=n-1;
              }
          }
+         if(dem==0) cout<<"Ma nhan vien khong ton tai";
      }
      void sua (int i)
      {
+         int dem=0;
         for (int m=0;m<n;m++)
          {
              if (a[m]->getma()==i)
              {
+                dem=1;
                 int k;
                 cout<<"\nChon loai nhan vien:";
                 cout<<"\n1. Lap trinh vien";
@@ -197,6 +202,7 @@ class quanly
                 a[m]->nhap();
               }
          }
+         if(dem==0) cout<<"Ma nhan vien khong ton tai";
      }
      long luongtb(int i)
      {
@@ -340,7 +346,7 @@ int main()
             }
 
 
-        cout<<"Ban co nhap tiep khong?"<<endl;
+        cout<<endl<<"Ban co muon chon tiep khong?"<<endl;
         cout<<"1. Co"<<endl;
         cout<<"2. Khong"<<endl;
         cout<<"Moi ban nhap lua chon: ";
