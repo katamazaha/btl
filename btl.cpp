@@ -30,6 +30,7 @@ class nhanvien{
         cout<<"Luong co ban: "<<luongcb<<endl;
     }
     virtual void luong(){}
+    virtual long luongthang(int i){}
 };
 class dev:
     virtual public nhanvien
@@ -58,6 +59,10 @@ class dev:
           for (int i=0;i<=11;i++)
             cout<<"Luong thang "<<i+1<<" la: "<<luongcb+them[i]*200000<<"d"<<endl;
       }
+      virtual long luongthang( int i)
+      {
+          return luongcb+them[i-1]*200000;
+      }
     };
 class test:
     virtual public nhanvien
@@ -85,6 +90,10 @@ class test:
           for (int i=0;i<=11;i++)
           cout<<"Luong thang "<<i+1<<"l a: "<<luongcb+soloi[i]*20000<<"d"<<endl;
       }
+      virtual long luongthang( int i)
+      {
+          return luongcb+soloi[i-1]*20000;
+      }
     };
 class quanly
     {
@@ -107,12 +116,12 @@ class quanly
         for (int i=0;;i++)
         {
         cout<<"\nChon loai nhan vien:";
-        cout<<"\n1-Lap trinh vien";
-        cout<<"\n2-Tester";
-        cout<<"\n0-Ket thuc\n";
+        cout<<"\n1. Lap trinh vien";
+        cout<<"\n2. Tester";
+        cout<<"\n0. Tro lai\n";
         cin>>k;
         if (k!=1 && k!=2 && k!=0) cout<<"Khong hop le";
-        if (k==0) return;
+        if (k==0) return ;
         else if (k==1)
         {
             n++;
@@ -137,11 +146,199 @@ class quanly
             cout<<endl;
           }
      }
+     void them()
+     {
+        int k;
+        cout<<"\nChon loai nhan vien:";
+        cout<<"\n1. Lap trinh vien";
+        cout<<"\n2. Tester\n";
+        cin>>k;
+        if (k!=1 && k!=2 && k!=0) cout<<"Khong hop le";
+        if (k==1)
+        {
+            n++;
+            a[n-1]= new dev;
+        }
+        else
+        {
+            n++;
+            a[n-1]= new test;
+        }
+        a[n-1]->nhap();
+     }
+     void xoa(int i)
+     {
+         for(int j=i;j<n-1;j++)
+         a[j]=a[j+1];
+     }
+     void sua (int i)
+     {
+         int k;
+        cout<<"\nChon loai nhan vien:";
+        cout<<"\n1. Lap trinh vien";
+        cout<<"\n2. Tester\n";
+        cin>>k;
+        if (k!=1 && k!=2 && k!=0) cout<<"Khong hop le";
+        if (k==0) return ;
+        else if (k==1)
+        {
+            n++;
+            a[i]= new dev;
+        }
+        else
+        {
+            n++;
+            a[i]= new test;
+        }
+        a[i]->nhap();
+     }
+     long luongtb(int i)
+     {
+         long tong=0;
+         for (int j=0;j<n;j++)
+            tong=tong+a[j]->luongthang(i);
+         return (double)tong/n;
+     }
     };
+    void timkiem()
+    {
+        int n;
+                cout<<endl<<"Tim kiem nhan vien theo thong tin: "<<endl;
+                cout<<"1. Ten"<<endl;
+                cout<<"2. Ma nhan vien"<<endl;
+                cout<<"3. So dien thoai"<<endl;
+                cout<<"4. Thoi gian bat dau lam viec"<<endl;
+                cin>>n;
+                switch (n)
+                {
+                case 1:
+                    {
+                        //x.timkiemten;
+                        break;
+                    }
+                case 2:
+                    {
+                        //x.timkiemmanv;
+                        break;
+                    }
+                case 3:
+                    {
+                        //x.timkiemsdt;
+                        break;
+                    }
+                case 4:
+                    {
+                        //x.timkiemtime;
+                        break;
+                    }
+                }
+    }
 int main()
 {
     quanly x;
-    x.nhap();
-    x.xuat();
+    int i=1,k;
+    while (i==1)
+    {
+        cout<<"=================================="<<endl;
+        cout<<"             MENU                 "<<endl;
+        cout<<"=================================="<<endl;
+        cout<<"1. Nhap danh sach nhan vien"<<endl;
+        cout<<"2. Hien thi danh sach nhan vien"<<endl;
+        cout<<"3. Them nhan vien"<<endl;
+        cout<<"4. Sua thong tin nhan vien"<<endl;
+        cout<<"5. Xoa nhan vien"<<endl;
+        cout<<"6. Tim kiem nhan vien"<<endl;
+        cout<<"7. Tinh muc luong trung binh cac nhan vien theo thang"<<endl;
+        cout<<"8. Thong ke cac nhan vien co muc luong thap hon muc luong trung binh cac nhan vien theo thang"<<endl;
+        cout<<"Moi ban nhap lua chon: ";cin>>k;
+        switch (k)
+        {
+        case 1:
+            {
+                x.nhap();
+                break;
+            }
+        case 2:
+            {
+                x.xuat();
+                break;
+            }
+        case 3:
+            {
+                int n;
+                cout<<endl<<"So luong nhan vien can them: ";
+                cin>>n;
+                for(int j=1;j<=n;j++)
+                x.them();
+                break;
+            }
+        case 4:
+            {
+                int n;
+                cout<<endl<<"So luong nhan vien can sua thong tin: ";
+                cin>>n;
+                for (int j=1;j<=n;j++)
+                {
+                    timkiem();
+                    //them ham tim nhan vien can sua
+                    x.sua(n);
+                }
+                break;
+            }
+        case 5:
+            {
+               int n;
+               cout<<endl<<"So luong nhan vien can xoa: ";
+               cin>>n;
+               for (int j=1;j<=n;j++)
+                {
+                    timkiem();
+                    //them ham tim nhan vien can sua
+                    x.xoa(n-1);
+                }
+                break;
+            }
+        case 6:
+            {
+                timkiem();
+                break;
+            }
+        case 7:
+            {
+                int n;
+                cout<<endl<<"Nhap thang tinh luong trung binh cac nhan vien: ";
+                cin>>n;
+                while (n<0 || n>12)
+                {
+                    cout<<endl<<"Khong hơp le";
+                    cout<<endl<<"Moi ban nhap lai: ";
+                    cin>>n;
+                }
+                x.luongtb(n);
+               break;
+            }
+        case 8:
+            {
+               int n;
+                cout<<endl<<"Nhap thang thong ke cac nhan vien co muc luong thap hon trung binh: ";
+                cin>>n;
+                while (n<0 || n>12)
+                {
+                    cout<<endl<<"Khong hơp le";
+                    cout<<endl<<"Moi ban nhap lai: ";
+                    cin>>n;
+                }
+                //x.thongke;
+               break;
+            }
+            }
+
+
+        cout<<"Ban co nhap tiep khong?"<<endl;
+        cout<<"1. Co"<<endl;
+        cout<<"2. Khong"<<endl;
+        cout<<"Moi ban nhap lua chon: ";
+        cin>>i;
+    }
     return 0;
 }
