@@ -175,6 +175,7 @@ class quanly
              {
                  for(int j=k;j<n-1;j++)
                  a[j]=a[j+1];
+                 n=n-1;
              }
          }
      }
