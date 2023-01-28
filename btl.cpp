@@ -321,13 +321,8 @@ int main()
                 int n;
                 cout<<endl<<"Nhap thang tinh luong trung binh cac nhan vien: ";
                 cin>>n;
-                while (n<0 || n>12)
-                {
-                    cout<<endl<<"Khong hơp le";
-                    cout<<endl<<"Moi ban nhap lai: ";
-                    cin>>n;
-                }
-                x.luongtb(n);
+                if (n<0 || n>12) cout<<endl<<"Khong hơp le";
+                else x.luongtb(n);
                break;
             }
         case 8:
