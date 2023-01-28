@@ -205,12 +205,12 @@ class quanly
          }
          if(dem==0) cout<<"Ma nhan vien khong ton tai";
      }
-     long luongtb(int i)
+     void luongtb(int i)
      {
          long tong=0;
          for (int j=0;j<n;j++)
             tong=tong+a[j]->luongthang(i);
-         return (double)tong/n;
+         cout<<"Muc luong trung binh thang "<<i<<" cua cac nhan vien trong cong ty la: "<<(double)tong/n;
      }
     };
     void timkiem()
