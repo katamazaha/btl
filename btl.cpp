@@ -4,22 +4,27 @@
 using namespace std;
 class nhanvien{
  protected:
-     string hoten;
-     int ma,sdt,day,mon,year;
+     string sdt,hoten;
+     int ma,day,mon,year;
      long luongcb;
  public:
     nhanvien(){};
     ~nhanvien(){};
     virtual void nhap()
     {
-        cout<<"Ho va ten: ";fflush(stdin);getline(cin, hoten);
-        cout<<"Ma nhan vien: ";cin>>ma;
-        cout<<"So dien thoai: ";cin>>sdt;
+        cout<<"Ho va ten: ";
+        fflush(stdin);
+        cin>>hoten;
+        cout<<"Ma nhan vien: ";
+        cin>>ma;
+        cout<<"So dien thoai: ";
+        cin>>sdt;
         cout<<"Ngay bat dau d/m/y: ";
-        cin>>day;cin.ignore();
-        cin>>mon;cin.ignore();
-        cin>>year;cin.ignore();
-        cout<<"Luong co ban: ";cin>>luongcb;
+        cin>>day; cin.ignore();
+        cin>>mon; cin.ignore();
+        cin>>year; cin.ignore();
+        cout<<"Luong co ban: ";
+        cin>>luongcb;
     }
     virtual void xuat()
     {
@@ -32,7 +37,13 @@ class nhanvien{
     virtual void luong(){}
     virtual long luongthang(int i){}
     long getma(){return ma;}
+    string getten(){return hoten;}
+    string getsdt(){return sdt;}
+    int getday(){return day;}
+    int getmon(){return mon;}
+    int getyear(){return year;}
 };
+typedef nhanvien NV;
 class dev:
     virtual public nhanvien
     {
@@ -89,7 +100,7 @@ class test:
       virtual void luong()
       {
           for (int i=0;i<=11;i++)
-          cout<<"Luong thang "<<i+1<<"l a: "<<luongcb+soloi[i]*20000<<endl;
+          cout<<"Luong thang "<<i+1<<" la: "<<luongcb+soloi[i]*20000<<endl;
       }
       virtual long luongthang( int i)
       {
@@ -212,40 +223,91 @@ class quanly
             tong=tong+a[j]->luongthang(i);
          return (double)tong/n;
      }
-    };
-    void timkiem()
+    void tkmnv(int i)
     {
-        int n;
-                cout<<endl<<"Tim kiem nhan vien theo thong tin: "<<endl;
-                cout<<"1. Ten"<<endl;
-                cout<<"2. Ma nhan vien"<<endl;
-                cout<<"3. So dien thoai"<<endl;
-                cout<<"4. Thoi gian bat dau lam viec"<<endl;
-                cin>>n;
-                switch (n)
-                {
-                case 1:
-                    {
-                        //x.timkiemten;
-                        break;
-                    }
-                case 2:
-                    {
-                        //x.timkiemmanv;
-                        break;
-                    }
-                case 3:
-                    {
-                        //x.timkiemsdt;
-                        break;
-                    }
-                case 4:
-                    {
-                        //x.timkiemtime;
-                        break;
-                    }
-                }
+                        int dem=0;
+                        cout <<"Nhap ma so nhan vien can tim kiem: ";
+                        cin >> i;
+                        for(int m=0; m<i; m++)
+                        {
+                           if (a[m]->getma() == i)
+                            {
+                                a[m]->xuat();
+                                a[m]->luong();
+                                dem++;
+                            }
+                        }
+                        if(dem == 0)
+                        cout <<"Ma so nhan vien khong co trong danh sach!"<<endl;
     }
+    void tkten(string ht)
+    {
+                        int dem=0;
+                        cout <<"Nhap ten nhan vien can tim kiem: ";
+                        cin >> ht   ;
+                        for(int i=0; i<n; i++)
+                        {
+                           if (ht.compare(a[i]->getten())==0)
+                            {
+                                a[i]->xuat();
+                                a[i]->luong();
+                                dem++;
+                            }
+                        }
+                        if(dem == 0)
+                        cout <<"Nhan vien khong co trong danh sach!"<<endl;
+    }
+    void tksdt(string so)
+    {
+                        int dem=0;
+                        cout <<"Nhap so dien thoai nhan vien can tim kiem: ";
+                        cin >> so;
+                        for(int m=0; m<n; m++)
+                        {
+                           if (a[m]->getsdt() == so)
+                            {
+                                a[m]->xuat();
+                                a[m]->luong();
+                                dem++;
+                            }
+                        }
+                        if(dem == 0)
+                        cout <<"Nhan vien khong co trong danh sach!"<<endl;
+    }
+    void tklamviec(int x, int y, int z)
+    {
+                        int dem=0;
+                        cout <<"Nhap ngay bat dau lam cua nhan vien can tim kiem: ";
+                        cin>>x; cin.ignore();
+                        cin>>y; cin.ignore();
+                        cin>>z; cin.ignore();
+                        for(int m=0; m<n; m++)
+                        {
+                           if (a[m]->getday() == x && a[m]->getmon() == y && a[m]->getyear() == z)
+                            {
+                                a[m]->xuat();
+                                a[m]->luong();
+                                dem++;
+                            }
+                        }
+                        if(dem == 0)
+                        cout <<"Nhan vien khong co trong danh sach!"<<endl;
+    }
+    void thongke(int i)
+    {
+        int dem=0;
+        for (int m=0; m<n; m++)
+        {
+            if (a[m]->luongthang(i)<luongtb(i))
+            {
+                a[m]->xuat();
+                dem++;
+            }
+        }
+        if (dem==0)
+        cout <<"Khong co nhan vien nao co luong thap hon luong trung binh"<<endl;
+    }
+};
 int main()
 {
     quanly x;
@@ -260,9 +322,12 @@ int main()
         cout<<"3. Them nhan vien"<<endl;
         cout<<"4. Sua thong tin nhan vien"<<endl;
         cout<<"5. Xoa nhan vien"<<endl;
-        cout<<"6. Tim kiem nhan vien"<<endl;
-        cout<<"7. Tinh muc luong trung binh cac nhan vien theo thang"<<endl;
-        cout<<"8. Thong ke cac nhan vien co muc luong thap hon muc luong trung binh cac nhan vien theo thang"<<endl;
+        cout<<"6. Tim kiem nhan vien theo ma nhan vien"<<endl;
+        cout<<"7. Tim kiem nhan vien theo ho ten"<<endl;
+        cout<<"8. Tim kiem nhan vien theo so dien thoai"<<endl;
+        cout<<"9. Tim kiem nhan vien theo ngay bat dau lam viec"<<endl;
+        cout<<"10. Tinh muc luong trung binh cac nhan vien theo thang"<<endl;
+        cout<<"11. Thong ke cac nhan vien co muc luong thap hon muc luong trung binh cac nhan vien theo thang"<<endl;
         cout<<"Moi ban nhap lua chon: ";cin>>k;
         switch (k)
         {
@@ -313,10 +378,29 @@ int main()
             }
         case 6:
             {
-                timkiem();
+                int m;
+                x.tkmnv(m);
                 break;
             }
         case 7:
+            {
+                string m;
+                x.tkten(m);
+                break;
+            }
+        case 8:
+            {
+                string m;
+                x.tksdt(m);
+                break;
+            }
+        case 9:
+            {
+                int v,y,z;
+                x.tklamviec(v,y,z);
+                break;
+            }
+        case 10:
             {
                 int n;
                 cout<<endl<<"Nhap thang tinh luong trung binh cac nhan vien: ";
@@ -327,10 +411,10 @@ int main()
                     cout<<endl<<"Moi ban nhap lai: ";
                     cin>>n;
                 }
-                x.luongtb(n);
+               cout<<x.luongtb(n);
                break;
             }
-        case 8:
+        case 11:
             {
                int n;
                 cout<<endl<<"Nhap thang thong ke cac nhan vien co muc luong thap hon trung binh: ";
@@ -341,7 +425,7 @@ int main()
                     cout<<endl<<"Moi ban nhap lai: ";
                     cin>>n;
                 }
-                //x.thongke;
+                x.thongke(n);
                break;
             }
             }
